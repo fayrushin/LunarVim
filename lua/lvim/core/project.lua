@@ -11,7 +11,7 @@ function M.config()
     ---@usage set to true to disable setting the current-woriking directory
     --- Manual mode doesn't automatically change your root directory, so you have
     --- the option to manually do so using `:ProjectRoot` command.
-    manual_mode = false,
+    manual_mode = true,
 
     ---@usage Methods of detecting the root directory
     --- Allowed values: **"lsp"** uses the native neovim lsp
@@ -22,7 +22,7 @@ function M.config()
     detection_methods = { "pattern" },
 
     ---@usage patterns used to detect root dir, when **"pattern"** is in detection_methods
-    patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+    patterns = {"CMakeLists.txt", ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
 
     ---@ Show hidden files in telescope when searching for files in a project
     show_hidden = false,

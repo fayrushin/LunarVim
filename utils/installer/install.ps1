@@ -2,8 +2,8 @@
 $ErrorActionPreference = "Stop" # exit when command fails
 
 # set script variables
-$LV_BRANCH = $LV_BRANCH ?? "rolling"
-$LV_REMOTE = $LV_REMOTE ??  "lunarvim/lunarvim.git"
+$LV_BRANCH = $LV_BRANCH ?? "master"
+$LV_REMOTE = $LV_REMOTE ??  "fayrushin/lunarvim.git"
 $INSTALL_PREFIX = $INSTALL_PREFIX ?? "$HOME\.local"
 
 $env:XDG_DATA_HOME = $env:XDG_DATA_HOME ?? $env:APPDATA

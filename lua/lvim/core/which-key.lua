@@ -85,7 +85,7 @@ M.config = function()
       ["q"] = { "<cmd>lua require('lvim.utils.functions').smart_quit()<CR>", "Quit" },
       ["/"] = { "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment" },
       ["c"] = { "<cmd>BufferKill<CR>", "Close Buffer" },
-      ["f"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Find File" },
+      ["f"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Git files" },
       ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
       b = {
         name = "Buffers",
@@ -242,7 +242,7 @@ M.config = function()
         name = "Search",
         b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
         c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-        f = { "<cmd>Telescope find_files<cr>", "Find File" },
+        f = { "<cmd>lua require('telescope.builtin').find_files({hidden=true,no_ignore=true})<CR>","Find files" },
         h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
         H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
         M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
