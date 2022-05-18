@@ -37,8 +37,8 @@ function M.config()
         },
       },
       update_focused_file = {
-        enable = true,
-        update_cwd = true,
+        enable = false,
+        update_cwd = false,
         ignore_list = {},
       },
       system_open = {
@@ -165,8 +165,8 @@ function M.setup()
   -- Implicitly update nvim-tree when project module is active
   if lvim.builtin.project.active then
     lvim.builtin.nvimtree.setup.respect_buf_cwd = true
-    lvim.builtin.nvimtree.setup.update_cwd = true
-    lvim.builtin.nvimtree.setup.update_focused_file = { enable = true, update_cwd = true }
+    lvim.builtin.nvimtree.setup.update_cwd = false
+    lvim.builtin.nvimtree.setup.update_focused_file = { enable = false, update_cwd = false }
   end
 
   local function telescope_find_files(_)

@@ -3,7 +3,7 @@ set -eo pipefail
 
 #Set branch to master unless specified by the user
 declare LV_BRANCH="${LV_BRANCH:-"master"}"
-declare -r LV_REMOTE="${LV_REMOTE:-lunarvim/lunarvim.git}"
+declare -r LV_REMOTE="${LV_REMOTE:-fayrushin/Lunarvim.git}"
 declare -r INSTALL_PREFIX="${INSTALL_PREFIX:-"$HOME/.local"}"
 
 declare -r XDG_DATA_HOME="${XDG_DATA_HOME:-"$HOME/.local/share"}"
@@ -365,7 +365,7 @@ function backup_old_config() {
 function clone_lvim() {
   msg "Cloning LunarVim configuration"
   if ! git clone --branch "$LV_BRANCH" \
-    --depth 1 "https://github.com/${LV_REMOTE}" "$LUNARVIM_BASE_DIR"; then
+    "git@github.com:${LV_REMOTE}" "$LUNARVIM_BASE_DIR"; then
     echo "Failed to clone repository. Installation failed."
     exit 1
   fi

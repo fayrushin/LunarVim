@@ -34,7 +34,7 @@ Make sure you have the release version of Neovim (0.7+).
 ### Linux:
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/fayrushin/lunarvim/master/utils/installer/install.sh)
 ```
 
 To run the install script without any interaction you can pass the `-y` flag to automatically install all dependencies and have no prompts. This is particularly useful in automated installations.
