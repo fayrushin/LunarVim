@@ -1,7 +1,7 @@
 -- colorscheme
 local status_vscode, vscode = pcall(require, "vscode")
 if not status_vscode then
-  vim.cmd[[
+  vim.cmd [[
   colorscheme default
   ]]
 else
@@ -12,9 +12,9 @@ end
 
 lvim.builtin.which_key.mappings["i"] = {
   name = "Interface",
-  d = {"<cmd>lua require('vscode').change_style('dark')<CR>", "Set dark theme"},
-  l = {"<cmd>lua require('vscode').change_style('light')<CR>", "Set light theme"},
-  t = {"<cmd>lua require'dapui'.toggle()<CR>", "Toggle debug UI"}
+  d = { "<cmd>lua require('vscode').change_style('dark')<CR>", "Set dark theme" },
+  l = { "<cmd>lua require('vscode').change_style('light')<CR>", "Set light theme" },
+  t = { "<cmd>lua require'dapui'.toggle()<CR>", "Toggle debug UI" }
 }
 
 lvim.builtin.which_key.mappings["t"] = {
@@ -91,8 +91,9 @@ local status_ok, dap = pcall(require, "dap")
 if status_ok then
   dap.adapters.cppdbg = {
     type = 'executable',
-    command = '/home/ravil/Apps/cpptools-linux/extension/debugAdapters/bin/OpenDebugAD7',
-    name = "cppdbg"
+    command = '/home/ravil/.local/bin/cpptools-linux/extension/debugAdapters/bin/OpenDebugAD7',
+    name = "cppdbg",
+    id = "cppdbg"
   }
 
   -- dap.adapters.lldb = {
@@ -138,57 +139,67 @@ end
 lvim.builtin.which_key.mappings["C"] = {
   name = "CMake",
   n = { "<cmd>CMake create_project<cr>", "Create new project" },
-  c = { "<cmd>CMake configure<cr>", "CMake configure"},
-  s = { "<cmd>CMake select_target<cr>", "CMake select target"},
-  r = { "<cmd>CMake build_and_run<cr>", "CMake run"},
-  t = { "<cmd>CMake select_build_type<cr>", "CMake select build type"},
-  b = { "<cmd>CMake build<cr>", "CMake build"},
-  d = { "<cmd>CMake build_and_debug<cr>", "CMake debug"},
-  e = { "<cmd>CMake clean<cr>", "CMake clean"},
-  q = { "<cmd>CMake cancel<cr>", "CMake cancel"},
+  c = { "<cmd>CMake configure<cr>", "CMake configure" },
+  s = { "<cmd>CMake select_target<cr>", "CMake select target" },
+  r = { "<cmd>CMake build_and_run<cr>", "CMake run" },
+  t = { "<cmd>CMake select_build_type<cr>", "CMake select build type" },
+  b = { "<cmd>CMake build<cr>", "CMake build" },
+  d = { "<cmd>CMake build_and_debug<cr>", "CMake debug" },
+  e = { "<cmd>CMake clean<cr>", "CMake clean" },
+  q = { "<cmd>CMake cancel<cr>", "CMake cancel" },
 }
 
 lvim.builtin.which_key.mappings["n"] = {
   name = "Hop",
-  n = { "<cmd> HopChar1 <cr>", "Hop one char"},
-  h = { "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>", "Hop before cursor"},
-  l = { "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>", "Hop after cursor"},
-  j = { "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", "Hop line before cursor"},
-  k = { "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", "Hop line after cursor"},
+  n = { "<cmd> HopChar1 <cr>", "Hop one char" },
+  h = { "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>", "Hop before cursor" },
+  l = { "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>", "Hop after cursor" },
+  j = { "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", "Hop line before cursor" },
+  k = { "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", "Hop line after cursor" },
 }
 
 
 -- Additional Plugins
 lvim.plugins = {
   {
-    "theHamsta/nvim-dap-virtual-text"},
-    config = function()
+    "theHamsta/nvim-dap-virtual-text" },
+  config = function()
     require("nvim-dap-virtual-text").setup()
-    end,
+  end,
   {
     "rcarriga/nvim-dap-ui",
     config = function()
-    require("dapui").setup()
+      require("dapui").setup()
     end,
   },
   {
     "Shatur/neovim-cmake",
     -- commit = "536987ef1fcbe7209ca3f243495603a5f1c250a7",
     config = function()
-    require('cmake').setup
-    {
-      parameters_file = 'neovim.json',
-      configure_args = { '-D', 'CMAKE_EXPORT_COMPILE_COMMANDS=1' },
-      build_args = {'-j 10'},
-      dap_configuration = { type = 'cppdbg', request = 'launch' },
-      dap_open_command = false,
-    }
+      require('cmake').setup
+          {
+            parameters_file = 'neovim.json',
+            configure_args = { '-D', 'CMAKE_EXPORT_COMPILE_COMMANDS=1' },
+            build_args = { '-j 10' },
+            dap_configuration = {
+              type = 'cppdbg',
+              request = 'launch',
+              setupCommands = {
+                {
+                  description = "Enable pretty-printing",
+                  text = "-enable-pretty-printing",
+                }
+              }
+            },
+            -- dap_open_command = false,
+            dap_open_command = require('dap').repl.open,
+          }
     end,
   },
   {
     "nvim-telescope/telescope-ui-select.nvim",
     config = function()
-    require('telescope').load_extension('ui-select')
+      require('telescope').load_extension('ui-select')
     end,
   },
   {
@@ -197,8 +208,8 @@ lvim.plugins = {
   {
     "phaazon/hop.nvim",
     config = function()
-    -- you can configure Hop the way you like here; see :h hop-config
-    require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+      -- you can configure Hop the way you like here; see :h hop-config
+      require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
     end
   },
   {
@@ -216,4 +227,3 @@ lvim.plugins = {
   --   end
   -- }
 }
-
