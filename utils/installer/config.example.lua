@@ -192,7 +192,8 @@ lvim.plugins = {
               }
             },
             -- dap_open_command = false,
-            dap_open_command = require('dap').repl.open,
+            -- dap_open_command = require('dap').repl.open,
+            dap_open_command = require('dapui').open,
           }
     end,
   },
