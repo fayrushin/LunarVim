@@ -1,5 +1,4 @@
--- colorscheme
-local status_vscode, vscode = pcall(require, "vscode")
+local status_vscode = pcall(require, "vscode")
 if not status_vscode then
   vim.cmd [[
   colorscheme default
@@ -17,9 +16,20 @@ lvim.builtin.which_key.mappings["i"] = {
   t = { "<cmd>lua require'dapui'.toggle()<CR>", "Toggle debug UI" }
 }
 
-lvim.builtin.which_key.mappings["t"] = {
+lvim.builtin.which_key.mappings["r"] = {
   "<cmd>NvimTreeFindFile<CR>", "File tree"
 }
+
+lvim.builtin.which_key.mappings["t"] = {
+  name = "Diagnostics",
+  t = { "<cmd>TroubleToggle<cr>", "trouble" },
+  w = { "<cmd>Trouble workspace_diagnostics<cr>", "workspace" },
+  d = { "<cmd>Trouble document_diagnostics<cr>", "document" },
+  q = { "<cmd>Trouble quickfix<cr>", "quickfix" },
+  l = { "<cmd>Trouble loclist<cr>", "loclist" },
+  r = { "<cmd>Trouble lsp_references<cr>", "references" },
+}
+
 -- general
 vim.opt.clipboard = ""
 lvim.log.level = "warn"
@@ -177,24 +187,24 @@ lvim.plugins = {
     -- commit = "536987ef1fcbe7209ca3f243495603a5f1c250a7",
     config = function()
       require('cmake').setup
-          {
-            parameters_file = 'neovim.json',
-            configure_args = { '-D', 'CMAKE_EXPORT_COMPILE_COMMANDS=1' },
-            build_args = { '-j 10' },
-            dap_configuration = {
-              type = 'cppdbg',
-              request = 'launch',
-              setupCommands = {
-                {
-                  description = "Enable pretty-printing",
-                  text = "-enable-pretty-printing",
-                }
-              }
-            },
-            -- dap_open_command = false,
-            -- dap_open_command = require('dap').repl.open,
-            dap_open_command = require('dapui').open,
+      {
+        parameters_file = 'neovim.json',
+        configure_args = { '-D', 'CMAKE_EXPORT_COMPILE_COMMANDS=1' },
+        build_args = { '-j 10' },
+        dap_configuration = {
+          type = 'cppdbg',
+          request = 'launch',
+          setupCommands = {
+            {
+              description = "Enable pretty-printing",
+              text = "-enable-pretty-printing",
+            }
           }
+        },
+        -- dap_open_command = false,
+        -- dap_open_command = require('dap').repl.open,
+        dap_open_command = require('dapui').open,
+      }
     end,
   },
   {
@@ -221,6 +231,39 @@ lvim.plugins = {
       vim.g.mkdp_auto_start = 1
     end,
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      require 'indent_blankline'.setup {
+        indentLine_enabled = 1,
+        char = "▏",
+        filetype_exclude = {
+          "help",
+          "terminal",
+          "alpha",
+          "packer",
+          "lspinfo",
+          "TelescopePrompt",
+          "TelescopeResults",
+          "nvchad_cheatsheet",
+          "lsp-installer",
+          "dashboard",
+          "NvimTree",
+          "",
+        },
+        buftype_exclude = { "terminal" },
+        show_trailing_blankline_indent = false,
+        show_first_indent_level = false,
+        -- show_current_context_start = true,
+        show_current_context = true,
+      }
+    end,
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  },
+
   -- {
   --   'nvim-telescope/telescope-media-files.nvim',
   --   config = function()
