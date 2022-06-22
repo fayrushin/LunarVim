@@ -263,6 +263,12 @@ lvim.plugins = {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
+  {
+    "mfussenegger/nvim-dap-python",
+    config = function()
+      require 'dap-python'.setup()
+    end,
+  }
 
   -- {
   --   'nvim-telescope/telescope-media-files.nvim',
