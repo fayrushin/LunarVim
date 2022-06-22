@@ -4,7 +4,7 @@ if not status_vscode then
   colorscheme default
   ]]
 else
-  vim.g.vscode_style = "light"
+  vim.g.vscode_style = "dark"
   vim.g.vscode_italic_comment = 1
   lvim.colorscheme = "vscode"
 end

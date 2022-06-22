@@ -16,7 +16,7 @@ local skipped_servers = {
   "ocamlls",
   "phpactor",
   "psalm",
-  "pylsp",
+  "pyright",
   "quick_lint_js",
   "rome",
   "reason_ls",
